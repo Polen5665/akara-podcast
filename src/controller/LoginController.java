@@ -39,14 +39,25 @@ public class LoginController implements Initializable {
     private Label alertLabel;
 
 
+
     @FXML
     public void loginClicked(MouseEvent event) throws IOException {
+        loginPane.setTop(null);
         BorderPane profile = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Profile.fxml")));
         loginPane.setCenter(profile);
+
+        // check theme for user
+        if(!DbUtils.isRetrievedTheme()) {
+            MainFormController.setDarkMode();
+        }
+        else {
+            MainFormController.setLightMode();
+        }
     }
 
     @FXML
     public void signUpClicked(MouseEvent event) throws IOException {
+        loginPane.setTop(null);
         BorderPane profile = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/SignUp.fxml")));
         loginPane.setCenter(profile);
     }
