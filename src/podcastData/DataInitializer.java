@@ -32,7 +32,7 @@ public class DataInitializer {
 
         List<Podcast> podcastList = new ArrayList<>();
 
-        for (int i = 0; i < 45; i++) {
+        for (int i = 0; i < 70; i++) {
             Podcast podcast = new Podcast();
             podcast.setTitle(faker.friends().quote());
             podcast.setDescription(faker.lorem().paragraph());
@@ -45,6 +45,7 @@ public class DataInitializer {
             podcast.setUpdatedAt(faker.business().creditCardExpiry());
             podcast.setWasPlayed(faker.random().nextBoolean());
             podcast.setViewCount(Integer.parseInt(faker.phoneNumber().subscriberNumber()));
+            podcast.setCreatedAt(faker.backToTheFuture().date());
             podcastList.add(podcast);
         }
 

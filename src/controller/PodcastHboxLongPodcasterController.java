@@ -1,5 +1,5 @@
 /*-----------------------------------------------------------------------------------------
- * NAME : PodcastHboxLongController.java
+ * NAME : PodcastHboxLongPodcasterController.java
  * VER  : v0.1
  * PROJ : Akara
  * CODE CLEAN? : Yes
@@ -8,78 +8,61 @@
  *-----------------------------------------------------------------------------------------
  *   DATE        AUTHOR         DESCRIPTION
  * ----------  --------------  ------------------------------------------------------------
- * 2022-07-30   Nuth Vireak     creation
+ * 2022-08-13   Nuth Vireak     creation
  * ----------  --------------  ------------------------------------------------------------
- * 2022-08-03   Nuth Vireak     Modification
+ * 2022-08-13   Nuth Vireak     Modification
  *---------------------------------------------------------------------------------------*/
 
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import model.Podcast;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class PodcastHboxLongController implements Initializable {
+public class PodcastHboxLongPodcasterController implements Initializable {
 
     //------------------------------------------------------------------------------------
     // fields declaration                                                               |
     //------------------------------------------------------------------------------------
 
     @FXML
-    private Label durationHboxLong;
+    private Label datePostHboxLongPodcaster;
 
     @FXML
-    private Label genreHboxLong;
+    private Label durationHboxLongPodcaster;
 
     @FXML
-    private ImageView imgHboxLong;
+    private Label genreHboxLongPodcaster;
 
     @FXML
-    private Label podcasterHboxLong;
+    private ImageView imgHboxLongPodcaster;
 
     @FXML
-    private Label titleHboxLong;
+    private Label titleHboxLongPodcaster;
 
     //------------------------------------------------------------------------------------
     //  Methods declaration                                                              |
     //------------------------------------------------------------------------------------
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
     void setData(Podcast podcast) {
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(podcast.getCover())));
 
-        imgHboxLong.setImage(image);
-        titleHboxLong.setText(podcast.getTitle());
-        podcasterHboxLong.setText(podcast.getPodcaster());
-        genreHboxLong.setText(podcast.getGenre());
-        durationHboxLong.setText(podcast.getDuration() + " min");
+        imgHboxLongPodcaster.setImage(image);
+        titleHboxLongPodcaster.setText(podcast.getTitle());
+        datePostHboxLongPodcaster.setText(podcast.getCreatedAt());
+        genreHboxLongPodcaster.setText(podcast.getGenre());
+        durationHboxLongPodcaster.setText(podcast.getDuration() + " min");
     }
 
-    @FXML
-    void podcasterClicked(MouseEvent event) throws Exception {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        BorderPane channel = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Channel.fxml")));
-        DiscoverSeeAllController.setBorderPaneStatic(channel);
-
-        String podcaster = podcasterHboxLong.getText();
-
-        ChannelController.setPodcasterChannelStatic(podcaster);
-        ChannelController.setPodcasterAboutChannelStatic(podcaster);
-        ChannelController.setPopularPodcastReleaseToView();
-        ChannelController.setMorePodcasterPodcastToView();
     }
 }
