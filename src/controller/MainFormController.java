@@ -2,6 +2,7 @@
  * NAME : MainFormController.java
  * VER  : v0.1
  * PROJ : Akara
+ * CODE CLEAN? : Yes
  *-----------------------------------------------------------------------------------------
  *                      H      I      S      T      O      R      Y
  *-----------------------------------------------------------------------------------------
@@ -9,7 +10,7 @@
  * ----------  --------------  ------------------------------------------------------------
  * 2022-06-24   Nuth Vireak     creation
  * ----------  --------------  ---------------------------------------------------------
- * 2022-07-08   Nuth Vireak     Modification
+ * 2022-07-22   Nuth Vireak     Modification
  *---------------------------------------------------------------------------------------*/
 
 package controller;
@@ -19,6 +20,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -33,7 +36,7 @@ import java.util.ResourceBundle;
 public class MainFormController implements Initializable {
 
     //------------------------------------------------------------------------------------
-    // fields declaration                                                               |
+    // fields declaration                                                                 |
     //------------------------------------------------------------------------------------
     @FXML
     public BorderPane borderPane;
@@ -47,11 +50,14 @@ public class MainFormController implements Initializable {
     @FXML
     private Label modeLabel;
 
+    @FXML
+    private TextField searchTF;
+
     public static BorderPane staticMainPane;
     public static Label staticModelLabel;
 
     //------------------------------------------------------------------------------------
-    //  Methods declaration s                                                             |
+    //  Methods declarations                                                             |
     //------------------------------------------------------------------------------------
 
     @Override
@@ -103,14 +109,14 @@ public class MainFormController implements Initializable {
     @FXML
     private void playlistClick(MouseEvent event) throws IOException {
 
-        VBox playlist = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Playlist.fxml")));
+        BorderPane playlist = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Playlist.fxml")));
         borderPane.setCenter(playlist);
     }
 
     @FXML
     private void trendingClicked(MouseEvent event) throws IOException {
 
-        VBox trending = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Trending.fxml")));
+        BorderPane trending = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Trending.fxml")));
         borderPane.setCenter(trending);
     }
 
@@ -119,15 +125,17 @@ public class MainFormController implements Initializable {
 
         BorderPane login; // create a Profile VBox object to store the Profile VBox in the FXML file
         // check that user login or not
-        if (DbUtils.getRetrievedID() != 0)
+        if (DbUtils.getRetrievedID() != 0) {
             login = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Profile.fxml")));
-        else
+        }
+        else {
             login = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
+            modeClicked(event);
+        }
 
         // set the Profile VBox to the center of the BorderPane of the MainForm
         borderPane.setCenter(login);
 
-        modeClicked(event);
     }
 
     @FXML
@@ -135,6 +143,13 @@ public class MainFormController implements Initializable {
 
         VBox feedback = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Feedback.fxml")));
         borderPane.setCenter(feedback);
+    }
+
+    @FXML
+    public void searchClicked(MouseEvent event) throws IOException {
+
+        ScrollPane search = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Search.fxml")));
+        borderPane.setCenter(search);
     }
 
     @FXML
@@ -149,7 +164,6 @@ public class MainFormController implements Initializable {
         } else {
             setLightMode();
         }
-
     }
 
 
